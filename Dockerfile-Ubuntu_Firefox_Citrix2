@@ -1,0 +1,66 @@
+FROM ubuntu:latest
+
+RUN apt-get -y update
+RUN apt-get -y install wget
+RUN apt-get -y install software-properties-common
+RUN rm -rf /var/lib/apt/lists/*
+
+RUN echo -e " Adding repositories\n"
+RUN apt-add-repository 'deb http://archive.ubuntu.com/ubuntu focal multiverse'
+RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+RUN add-apt-repository ppa:mozillateam/ppa
+RUN apt-get -y update
+
+# Install libxmu6
+RUN apt-get -y install libxmu6
+
+# Install libglu1-mesa
+RUN apt-get -y install libglu1-mesa
+
+#Install Firefox
+RUN apt-get -y install dbus-x11
+RUN apt-get -y install fonts-freefont-ttf
+RUN apt-get -y install firefox-esr
+RUN apt-get -y install libcanberra-gtk-module
+#RUN apt-get -y install libcanberra-gtk2
+RUN apt-get -y install pulseaudio
+
+# libwebkit-1.0-2
+#libwebkitgtk-1.0-0
+#libgstreamer-plugins-base0.10-0
+#libgstreamer0.10-0
+#libspeex1
+#gstreamer1.0-libav
+#gstreamer1.0-plugins-bad
+
+RUN mkdir /home/user
+RUN adduser user --home /home/user
+RUN chown -R user:root /home/user
+RUN chmod 770 /home/user
+RUN ls -la /home
+
+# Install ICAClient
+RUN wget -O - https://www.citrix.com/downloads/citrix-receiver/legacy-receiver-for-linux/receiver-for-linux-1391.html 2>/dev/null | grep '<a' | grep icaclient_ | grep _amd64 | sed 's/.*rel="/https:/g' | sed 's/".*//g' | sed 's/^/wget -O icaclient.deb /g' | sh
+
+# https://downloads.citrix.com/13680/icaclient_13.7.0.10276927_amd64.deb
+RUN export DEBIAN_FRONTEND="noninteractive"
+RUN echo icaclient app_protection/install_app_protection select no | debconf-set-selections
+RUN echo icaclient icaclient/accepteula select true | debconf-set-selections
+RUN echo icaclient keyboard-configuration/layoutcode string us | debconf-set-selections
+RUN echo icaclient keyboard-configuration/layout select | debconf-set-selections
+RUN debconf-show icaclient
+RUN debconf-show icaclient
+RUN apt-get -q -y install -f /icaclient.deb
+RUN apt-get -q -y clean
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN mkdir -p /opt/Citrix/ICAClient/keystore/cacerts
+RUN ln -s /usr/share/ca-certificates/mozilla/* /opt/Citrix/ICAClient/keystore/cacerts/
+RUN c_rehash /opt/Citrix/ICAClient/keystore/cacerts/ > /dev/null
+
+WORKDIR /home/user
+USER user
+
+ENTRYPOINT ["/usr/bin/firefox-esr", "--no-remote"]
+
+#docker image rm ubuntu/citrix2; docker build -t ubuntu/citrix2 -f Dockerfile-Ubuntu_Firefox_Citrix2 .
+#docker run --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd --privileged ubuntu/citrix2

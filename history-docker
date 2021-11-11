@@ -1,0 +1,128 @@
+  328  docker version
+  330  sudo apt -i install docker.io
+  331  sudo apt -y install docker.io
+  332  docker version
+  333  docker -it ubuntu
+  334  docker -it ubuntu /bin/bash
+  335  docker run -it ubuntu /bin/bash
+  336  docker run --help
+  338  docker run --help
+  339  docker run hello-word
+  340  sudo chmod 666 /var/run/docker.sock
+  342  docker run -it ubuntu /bin/bash
+  343  sudo usermod -aG docker
+  344  sudo usermod -aG docker ${USER}
+  345  grep docker /etc/group
+  351  docker run hello-word
+  352  sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+  356  sudo apt -y remove docker.io
+  359  apt -y install docker.io
+  360  sudo apt-get remove docker docker-engine docker.io containerd runc
+  363  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+  364  echo   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  365    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  367  sudo apt-get install docker-ce docker-ce-cli containerd.io
+  368  apt-cache madison docker-ce
+  369  sudo apt-get install docker-ce=5:20.10.10~3-0~ubuntu-focal docker-ce-cli=5:20.10.10~3-0~ubuntu-focal containerd.io
+  371  sudo docker run hello-world
+  372  docker pull desktopcontainers/icaclient
+  374  docker pull desktopcontainers/icaclient
+  375  docker run hello-world
+  376  grep docker /etc/group
+  377  sudo find / -type d -name ".docker" 2>/dev/null
+  378  sudo find / -type d -name "*docker*" 2>/dev/null
+  379  sudo systemctl restart docker
+  380  docker run hello-world
+  382  docker run hello-world
+  383  docker run -it ubuntu bash
+  385  docker images
+  386  docker run -it desktopcontainers/icaclient
+  388  docker run ubuntu /bin/bash -c "apt-get update"
+  389  docker run ubuntu /bin/bash -c "apt upgrade"
+  390  docker ps -a | head -2
+  391  docker images
+  392  docker pull ubuntu
+  393  docker images
+  394  docker --help
+  395  docker commit --help
+  396  docker commit ubuntu:latest
+  397  docker images
+  398  docker commit ubuntu
+  399  docker commit repository:ubuntu
+  400  docker pull --help
+  401  docker pull ubuntu ubuntu2
+  402  docker --help
+  403  docker rename ubuntu ubuntu2
+  404  docker rename --help
+  405  docker images
+  406  docker run -d -p 80:80 docker/getting-started
+  407  docker images
+  408  docker container
+  409  docker container ls
+  410  docker container stop 4473d69b56bd
+  411  docker container ls
+  412  docker images
+  413  docker image tag ubuntu
+  414  docker image tag ubuntu ubuntu2
+  415  docker images
+  416  docker run -it ubuntu2 touch /tmp/emerson
+  417  docker run -it ubuntu2 ls /tmp/emerson
+  418  docker run -it ubuntu2 echo "test" >  /tmp/emerson
+  419  docker run -it ubuntu2 ls /tmp/emerson
+  420  docker run -it ubuntu2
+  421  docker images
+  422  sudo docker pa -a
+  423  sudo docker ps -a
+  424  docker container stop 4473d69b56bd
+  425  docker ps -a
+  426  docker container
+  427  docker container prune
+  428  docker container
+  429  docker ps -a
+  430  docker run -it ubuntu2
+  432  docker images
+  433  docker run it ba6acccedd29 bin/bash
+  434  docker run --it ba6acccedd29 bin/bash
+  435  docker run -it ba6acccedd29 bin/bash
+  436  docker ps -a
+  437  docker commit 97e01d405a3c ubuntu3
+  438  docker images
+  439  docker run -it ubuntu3 cat /tmp/emerson
+  440  docker run -it ubuntu3 ls /tmp/
+  441  docker ps -a
+  442  docker prune
+  443  docker container prune
+  444  docker ps -a
+  445  docker images
+  446  docker images rm ubuntu3
+  447  docker 
+  448  docker image rm ubuntu3
+  449  docker images
+  450  docker image rm hello-world
+  451  docker images
+  453  docker run -it ubuntu2
+  454  docker ps -a
+  455  docker commit 0e8498a03948 todelete
+  456  docker ps -a
+  457  docker images
+  458  docker run -it todelete
+  460  mkdir docker/
+  461  cd docker/
+  465  sudo rm -fr /data/docker/
+  468  mkdir docker
+  469  cd docker/
+  472  docker build -t blablabla .
+  474  mv myfile Dockerfile
+  475  docker build -t blablabla .
+  477  docker images
+  478  docker run -it --net=host -e DISPLAY -v /tmp/.X11-unix blablabla bash
+  487  docker run -it --net=host -e DISPLAY -v /tmp/.X11-unix blablabla bash
+  489  docker run -it --net=host -e DISPLAY -v /tmp/.X11-unix blablabla bash
+  491  docker ps -a
+  492  docker prune
+  493  docker container prune
+  494  docker ps -a
+  496  cd /data/docker/
+  498  less Dockerfile 
+  502  cd /data/docker/
+  504  history | grep -i docker > history-docker
