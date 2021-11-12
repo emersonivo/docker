@@ -1,0 +1,18 @@
+FROM ubuntu/chrome_citrix:dump
+
+RUN echo "Based on ubuntu:latest"
+RUN echo "Based on ubuntu:chrome"
+
+RUN apt-get -y update
+
+RUN chown -R emerson:users /home/emerson
+RUN chmod -R 777 /home/emerson
+ENV HOME /home/emerson
+WORKDIR /home/emerson
+USER emerson
+
+
+
+#docker image rm chrome/citrix:dump; docker build -t chrome/citrix:dump -f /data/docker/run-chrome-citrix_dump .
+#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged chrome/citrix:dump /bin/bash
+#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged chrome/citrix:dump /usr/bin/google-chrome-stable --no-remote 
