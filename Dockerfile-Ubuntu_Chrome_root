@@ -1,0 +1,38 @@
+FROM ubuntu:latest
+
+RUN apt-get -y update
+RUN apt-get -y install wget
+RUN apt-get -y install software-properties-common
+RUN rm -rf /var/lib/apt/lists/*
+
+RUN echo -e " Adding repositories\n"
+RUN apt-add-repository 'deb http://archive.ubuntu.com/ubuntu focal multiverse'
+RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+
+RUN apt-get -y update
+
+# Install libxmu6
+RUN apt-get -y install libxmu6
+
+# Install libglu1-mesa
+RUN apt-get -y install libglu1-mesa
+
+#Install Firefox
+RUN apt-get -y install dbus-x11
+RUN apt-get -y install fonts-freefont-ttf
+# Set the Chrome repo.
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+
+RUN apt-get update && apt-get -y install google-chrome-stable
+
+RUN apt-get -y install libcanberra-gtk-module
+#RUN apt-get -y install libcanberra-gtk2
+RUN apt-get -y install pulseaudio
+
+
+# ENTRYPOINT ["/usr/bin/google-chrome-stable", "--no-remote", "--no-sandbox"]
+# RUN ls -l /usr/bin/
+
+#docker image rm ubuntu/chrome:root; docker build -t ubuntu/chrome:root -f Dockerfile-Ubuntu_Chrome_root .
+#xhost local:root;docker run --rm -it -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -e DISPLAY=unix$DISPLAY --privileged ubuntu/chrome:root
