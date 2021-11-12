@@ -32,4 +32,5 @@ RUN chmod -R 777 /home/emerson
 
 #docker image rm ubuntu/chrome; docker build -t ubuntu/chrome -f /data/docker/ubuntu-chrome .
 #docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged ubuntu/chrome /bin/bash
+
 #docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged ubuntu/chrome /usr/bin/google-chrome-stable --no-remote --no-sandbox
