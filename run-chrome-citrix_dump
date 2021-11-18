@@ -1,18 +1,43 @@
+#####################
+# BUILD XNOSHM HACK #
+#####################
+# See: https://github.com/jessfraz/dockerfiles/issues/359#issuecomment-828714848
+FROM docker.io/library/alpine:3.13 AS docker_xnoshm
+
+RUN apk add --no-cache gcc musl-dev libxext-dev
+
+COPY docker_xnoshm.c /
+RUN gcc /docker_xnoshm.c -shared -nostdlib -o /docker_xnoshm.so
+
+################################################################################
+
 FROM ubuntu/chrome_citrix:dump
 
 RUN echo "Based on ubuntu:latest"
 RUN echo "Based on ubuntu:chrome"
 
-RUN apt-get -y update
+# RUN apt-get -y update
 
-RUN chown -R emerson:users /home/emerson
-RUN chmod -R 777 /home/emerson
+COPY --from=docker_xnoshm /docker_xnoshm.so /usr/lib/docker_xnoshm.so
+ENV LD_PRELOAD="/usr/lib/docker_xnoshm.so"
+
 ENV HOME /home/emerson
 WORKDIR /home/emerson
 USER emerson
 
-
-
 #docker image rm chrome/citrix:dump; docker build -t chrome/citrix:dump -f /data/docker/run-chrome-citrix_dump .
-#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged chrome/citrix:dump /bin/bash
+
+#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --user=$(id -u):$(id -g) --privileged chrome/citrix:dump /bin/bash
+
+#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged -u root chrome/citrix:dump /bin/bash
+
+#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged chrome/citrix:dump /bin/bash /home/emerson/start.sh
+
+
 #docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged chrome/citrix:dump /usr/bin/google-chrome-stable --no-remote 
+
+#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged chrome/citrix:dump /usr/bin/google-chrome-stable https://mydesk.morganstanley.com
+
+#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged chrome/citrix:dump /bin/bash /home/emerson/start.sh
+
+#docker run --net mydockernet --ip 192.168.10.2 -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged chrome/citrix:dump /usr/bin/google-chrome-stable --no-remote 

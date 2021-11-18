@@ -1,4 +1,5 @@
 FROM ubuntu/chrome:latest
+# FROM ubuntu/chrome:sudo
 
 RUN apt-get -y update
 
@@ -25,7 +26,7 @@ RUN c_rehash /opt/Citrix/ICAClient/keystore/cacerts/ > /dev/null
 # ENTRYPOINT ["/usr/bin/google-chrome-stable", "--no-remote"]
 
 #docker image rm ubuntu/chrome:citrix; docker build -t ubuntu/chrome:citrix -f /data/docker/ubuntu-chrome-citrix .
-#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged ubuntu/chrome:citrix /bin/bash
+#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged -u root ubuntu/chrome:citrix /bin/bash
 #docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged ubuntu/chrome:citrix /usr/bin/google-chrome-stable --no-remote --no-sandbox
 
 

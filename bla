@@ -1,0 +1,100 @@
+# Starting Google Chrome:<br>
+[1736:1767:1117/185507.896352:ERROR:bus.cc(393)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")<br>
+libGL error: No matching fbConfigs or visuals found<br>
+libGL error: failed to load driver: swrast<br>
+[1777:1777:1117/185507.952548:ERROR:angle_platform_impl.cc(44)] Display.cpp:894 (initialize): ANGLE Display::initialize error 12289: Could not create a backing OpenGL context.<br>
+[1777:1777:1117/185507.952758:ERROR:gl_surface_egl.cc(782)] EGL Driver message (Critical) eglInitialize: Could not create a backing OpenGL context.<br>
+[1777:1777:1117/185507.952836:ERROR:gl_surface_egl.cc(1382)] eglInitialize OpenGL failed with error EGL_NOT_INITIALIZED<br>
+[1777:1777:1117/185507.953666:ERROR:gl_ozone_egl.cc(20)] GLSurfaceEGL::InitializeOneOff failed.<br>
+[1777:1777:1117/185507.955247:ERROR:viz_main_impl.cc(161)] Exiting GPU process due to errors during initialization<br>
+libGL error: No matching fbConfigs or visuals found<br>
+libGL error: failed to load driver: swrast<br>
+[1951:1951:1117/185508.118178:ERROR:sandbox_linux.cc(376)] InitializeSandbox() called with multiple threads in process gpu-process.<br>
+[1823:7:1117/185508.122267:ERROR:command_buffer_proxy_impl.cc(125)] ContextResult::kTransientFailure: Failed to send GpuControl.CreateCommandBuffer.<br>
+[1736:1762:1117/185512.201698:ERROR:chrome_browser_main_extra_parts_metrics.cc(226)] crbug.com/1216328: Checking Bluetooth availability started. Please report if there is no report that this ends.<br>
+[1736:1762:1117/185512.201714:ERROR:chrome_browser_main_extra_parts_metrics.cc(229)] crbug.com/1216328: Checking Bluetooth availability ended.<br>
+[1736:1762:1117/185512.201720:ERROR:chrome_browser_main_extra_parts_metrics.cc(232)] crbug.com/1216328: Checking default browser status started. Please report if there is no report that this ends.<br>
+[1736:1762:1117/185512.289054:ERROR:chrome_browser_main_extra_parts_metrics.cc(236)] crbug.com/1216328: Checking default browser status ended.<br>
+<br>
+#-------------- connecting to mydesk<br>
+<br>
+#-------------- connecting to remote host<br>
+<br>
+#-------------- opening ica file<br>
+citrix-wfica[2205]: Failed to connect with logd.<br>
+citrix-wfica[2205]: Value of cl_argv[0] : /opt/Citrix/ICAClient/wfica<br>
+citrix-wfica[2205]: Value of cl_argv[1] : -icaroot<br>
+citrix-wfica[2205]: Value of cl_argv[2] : /opt/Citrix/ICAClient<br>
+citrix-wfica[2205]: Value of cl_argv[3] : /home/emerson/Downloads/launchExtMSAD.ica<br>
+citrix-wfica[2205]: ReadINIConfig() exiting<br>
+citrix-wfica[2205]: Called NCSXMLanguageInit: language is C locale, codepage is 1252<br>
+<br>
+citrix-wfica[2206]: Value of cl_argv[0] : /opt/Citrix/ICAClient/wfica<br>
+citrix-wfica[2206]: Value of cl_argv[1] : -version<br>
+citrix-wfica[2205]: Can't create serial number file '/etc/icalicense/clientlicense' - 'File exists'<br>
+citrix-wfica[2205]: New serial number file ?? made by another client<br>
+citrix-wfica[2205]: VDSCARD: DriverOpen failed. rc = 0x405<br>
+citrix-wfica[2205]: WSTCP:resolve name ;40;STA238587011;955E4F7E6E44DF9A12E0D456399222<br>
+citrix-wfica[2205]: Cgp_SetCLSessionContext pSC is null<br>
+citrix-wfica[2205]: doEncryptData inbuffersize: 175<br>
+citrix-wfica[2205]: SSLPutDataFn inbuffersize: 229<br>
+citrix-wfica[2205]: doEncryptData inbuffersize: 31<br>
+citrix-wfica[2205]: SSLPutDataFn inbuffersize: 85<br>
+citrix-wfica[2205]: doEncryptData inbuffersize: 9<br>
+citrix-wfica[2205]: SSLPutDataFn inbuffersize: 53<br>
+citrix-wfica[2205]: VDEUEM: Insufficient Input buffer size: 0 bytes. Required buffer size: 48 bytes<br>
+citrix-wfica[2205]: VDEUEM: DriverInfo failed. rc = 0x3ec<br>
+citrix-wfica[2205]: VDMM: Insufficient Input buffer size: 0 bytes. Required buffer size: 50 bytes<br>
+citrix-wfica[2205]: VDMM: DriverInfo failed. rc = 0x3ec<br>
+citrix-wfica[2205]: doEncryptData inbuffersize: 1457<br>
+citrix-wfica[2205]: SSLPutDataFn inbuffersize: 1509<br>
+citrix-wfica[2205]: doEncryptData inbuffersize: 1173<br>
+citrix-wfica[2205]: SSLPutDataFn inbuffersize: 1221<br>
+citrix-wfica[2205]: doEncryptData inbuffersize: 6<br>
+citrix-wfica[2205]: SSLPutDataFn inbuffersize: 53<br>
+citrix-wfica[2205]: doEncryptData inbuffersize: 8<br>
+citrix-wfica[2205]: SSLPutDataFn inbuffersize: 53<br>
+citrix-wfica[2205]: doEncryptData inbuffersize: 181<br>
+citrix-wfica[2205]: SSLPutDataFn inbuffersize: 229<br>
+citrix-wfica[2205]: SSL session strength: 128<br>
+Anomaly in MIT_SHM attach: 1 attachments, perm 1600.<br>
+citrix-wfica[2205]: doEncryptData inbuffersize: 13<br>
+citrix-wfica[2205]: SSLPutDataFn inbuffersize: 69<br>
+citrix-wfica[2205]: doEncryptData inbuffersize: 5<br>
+citrix-wfica[2205]: SSLPutDataFn inbuffersize: 53<br>
+citrix-wfica[2205]: doEncryptData inbuffersize: 5<br>
+citrix-wfica[2205]: SSLPutDataFn inbuffersize: 53<br>
+citrix-wfica[2205]: Not connected<br>
+citrix-wfica[2205]: DriverClose: deallocate the data buffers device: 1<br>
+citrix-wfica[2205]: VDEUEM: DriverClose failed. rc = 0x3fe<br>
+citrix-wfica[2238]: Value of cl_argv[0] : /opt/Citrix/ICAClient/wfica<br>
+citrix-wfica[2238]: Value of cl_argv[1] : -eula<br>
+citrix-wfica[2238]: Value of cl_argv[2] : -tell<br>
+citrix-wfica[2238]: Value of cl_argv[3] : MinimumTLS,MaximumTLS,SSLCiphers<br>
+citrix-wfica[2238]: ReadINIConfig() exiting<br>
+Error: no such file "/home/emerson/Downloads/launchExtMSAD.ica"<br>
+Opening "/home/emerson/Downloads/launchExtMSAD.ica" with Citrix Workspace Engine  (application/x-ica)<br>
+citrix-wfica[2245]: Failed to connect with logd.<br>
+citrix-wfica[2245]: Value of cl_argv[0] : /opt/Citrix/ICAClient/wfica<br>
+citrix-wfica[2245]: Value of cl_argv[1] : -icaroot<br>
+citrix-wfica[2245]: Value of cl_argv[2] : /opt/Citrix/ICAClient<br>
+citrix-wfica[2245]: Value of cl_argv[3] : /home/emerson/Downloads/launchExtMSAD.ica<br>
+<br>
+#---------------- File not found pop-up message<br>
+citrix-wfica[2245]: WD not loaded<br>
+citrix-wfica[2245]: WD not loaded<br>
+[2313:2344:1117/185745.942920:ERROR:bus.cc(393)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")<br>
+[2313:2344:1117/185745.942956:ERROR:bus.cc(393)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")<br>
+Opening in existing browser session.<br>
+Fontconfig error: Cannot load default config file: No such file: (null)<br>
+[1736:1736:1117/185745.987783:ERROR:interface_endpoint_client.cc(658)] Message 0 rejected by interface blink.mojom.WidgetHost<br>
+libGL error: No matching fbConfigs or visuals found<br>
+libGL error: failed to load driver: swrast<br>
+[2353:2353:0100/000000.014428:ERROR:angle_platform_impl.cc(44)] Display.cpp:894 (initialize): ANGLE Display::initialize error 12289: Could not create a backing OpenGL context.<br>
+[2353:2353:0100/000000.014497:ERROR:gl_surface_egl.cc(782)] EGL Driver message (Critical) eglInitialize: Could not create a backing OpenGL context.<br>
+[2353:2353:0100/000000.014517:ERROR:gl_surface_egl.cc(1382)] eglInitialize OpenGL failed with error EGL_NOT_INITIALIZED, trying next display type<br>
+[2353:2353:0100/000000.015084:ERROR:angle_platform_impl.cc(44)] Display.cpp:894 (initialize): ANGLE Display::initialize error 12289: Could not create a backing OpenGL context.<br>
+[2353:2353:0100/000000.015128:ERROR:gl_surface_egl.cc(782)] EGL Driver message (Critical) eglInitialize: Could not create a backing OpenGL context.<br>
+[2353:2353:0100/000000.015157:ERROR:gl_surface_egl.cc(1382)] eglInitialize OpenGLES failed with error EGL_NOT_INITIALIZED<br>
+[2353:2353:0100/000000.015181:ERROR:gl_ozone_egl.cc(20)] GLSurfaceEGL::InitializeOneOff failed.<br>
+# ------------- Closing chrome<br>
