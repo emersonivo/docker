@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:unminimized
 
 RUN apt-get -y update
 RUN apt-get -y install wget
@@ -40,7 +40,6 @@ RUN echo icaclient icaclient/accepteula select true | debconf-set-selections
 RUN echo icaclient keyboard-configuration/layoutcode string us | debconf-set-selections
 RUN echo icaclient keyboard-configuration/layout select | debconf-set-selections
 RUN debconf-show icaclient
-RUN debconf-show icaclient
 RUN apt-get -q -y install -f /icaclient.deb
 RUN apt-get -q -y clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -48,10 +47,10 @@ RUN mkdir -p /opt/Citrix/ICAClient/keystore/cacerts
 RUN ln -s /usr/share/ca-certificates/mozilla/* /opt/Citrix/ICAClient/keystore/cacerts/
 RUN c_rehash /opt/Citrix/ICAClient/keystore/cacerts/ > /dev/null
 
-WORKDIR /home/user
-USER user
-
 ENTRYPOINT ["/usr/bin/firefox-esr", "--no-remote"]
 
-#docker image rm ubuntu/citrix; docker build -t ubuntu/citrix -f Dockerfile-Ubuntu_Firefox_Citrix .
-#docker run --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd --privileged ubuntu/citrix
+#docker image rm ubuntu/firefox:citrix; docker build -t ubuntu/firefox:citrix -f /data/docker/ubuntu/Dockerfile-Ubuntu_Firefox_Citrix .
+
+#docker run --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd --privileged -u emerson ubuntu/firefox:citrix
+
+# docker run -it --privileged --rm --memory 512mb -e DISPLAY=unix$DISPLAY -e XDG_SESSION_TYPE=$XDG_SESSION_TYPE -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm -v $HOME/.Xauthority:/home/emerson/.Xauthority -v /var/lib/dbus:/var/lib/dbus --name=firefox -u user ubuntu/firefox:citrix https://mydesk.morganstanley.com

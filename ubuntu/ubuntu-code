@@ -1,0 +1,56 @@
+FROM ubuntu:latest
+
+RUN unminimize
+RUN apt-get -y update
+RUN apt-get -y install iproute2
+RUN apt-get -y install vim
+RUN apt-get -y install less
+RUN apt-get -y install iputils-ping
+RUN apt-get -y install wget
+RUN apt-get -y install software-properties-common
+RUN apt-get -y install dbus
+RUN apt-get -y install sudo
+RUN apt-get -y install curl software-properties-common apt-transport-https 
+RUN rm -rf /var/lib/apt/lists/*
+RUN echo -e " Adding repositories\n"
+RUN apt-add-repository 'deb http://archive.ubuntu.com/ubuntu focal multiverse'
+RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+RUN apt-get -y install libxmu6
+RUN apt-get -y install libglu1-mesa
+RUN apt-get -y install dbus-x11
+RUN apt-get -y install fonts-freefont-ttf
+RUN apt-get -y install libcanberra-gtk3-module
+RUN apt-get -y install pulseaudio
+
+# RUN curl https://brave-browser-apt-release.s3.brave.com/brave-core.asc| gpg --dearmor > brave-core.gpg
+# RUN install -o root -g root -m 644 brave-core.gpg /etc/apt/trusted.gpg.d/
+# RUN echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+
+# RUN sudo apt-get -y update
+# RUN sudo apt-get -y install brave-browser
+
+RUN adduser emerson
+
+#apt-get --fix-broken install
+
+
+#https://askubuntu.com/questions/147241/execute-sudo-without-password
+RUN usermod -aG sudo emerson
+COPY sudoers /etc/sudoers
+COPY code_1.62.3-1637137107_amd64.deb /tmp/code_1.62.3-1637137107_amd64.deb
+# RUN dpkg --install /tmp/code_1.62.3-1637137107_amd64.deb
+RUN chown -R emerson:users /home
+RUN chmod -R 777 /home/
+# USER emerson
+
+# ENTRYPOINT ["/usr/bin/brave-browser-stable", "--no-remote"]
+
+#docker image rm ubuntu/brave; docker build -t ubuntu/brave -f /data/docker/ubuntu/ubuntu-brave .
+
+#docker run --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority -v /var/lib/dbus:/var/lib/dbus -v /data/shared/emerson:/home/emerson --privileged ubuntu/brave /bin/bash
+
+#docker run --net mydockernet --ip 192.168.10.2 -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged ubuntu/brave /bin/bash
+
+#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged ubuntu/brave
+
+#docker run -itd --privileged --memory 512mb -e DISPLAY=unix$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm -v $HOME/.Xauthority:/home/emerson/.Xauthority -v /var/lib/dbus:/var/lib/dbus -v /usr/lib/x86_64-linux-gnu/:/usr/lib/x86_64-linux-gnu/ -v /data/shared/emerson:/home/emerson --name=brave --privileged ubuntu/brave

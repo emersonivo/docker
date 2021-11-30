@@ -1,0 +1,46 @@
+FROM ubuntu:unminimized
+
+RUN apt-get -y update
+RUN apt-get -y install wget
+RUN apt-get -y install software-properties-common
+RUN rm -rf /var/lib/apt/lists/*
+
+# Adding repositories    
+RUN apt-add-repository 'deb http://archive.ubuntu.com/ubuntu focal multiverse'
+RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+#RUN apt-add-repository ppa:repository/ppa
+RUN add-apt-repository ppa:mozillateam/ppa
+RUN apt-get -y update
+
+
+
+# Install libxmu6
+RUN apt-get -y install libxmu6
+
+# Install libglu1-mesa
+RUN apt-get -y install libglu1-mesa
+
+#Install Firefox
+RUN apt-get -y install dbus-x11
+RUN apt-get -y install fonts-freefont-ttf
+RUN apt-get -y install firefox-esr
+RUN apt-get -y install libcanberra-gtk-module
+#RUN apt-get -y install libcanberra-gtk2
+RUN apt-get -y install pulseaudio
+# Install iceweasel
+# RUN apt-get install iceweasel
+
+RUN adduser emerson
+RUN chown -R emerson:root /home
+RUN chmod 770 /home
+RUN ls -la /home
+
+WORKDIR /home
+# USER user
+
+ENTRYPOINT ["/usr/bin/firefox-esr", "--no-remote"]
+
+#docker image rm ubuntu:firefox; docker build -t ubuntu:firefox -f /data/docker/ubuntu/ubuntu_firefox .
+#docker run --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd --privileged -u emerson ubuntu:firefox /usr/bin/firefox-esr
+
+#docker run -it --privileged --rm --memory 512mb -e DISPLAY=unix$DISPLAY -e XDG_SESSION_TYPE=$XDG_SESSION_TYPE -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm -v $HOME/.Xauthority:/home/emerson/.Xauthority -v /var/lib/dbus:/var/lib/dbus -v /usr/lib/x86_64-linux-gnu/:/usr/lib/x86_64-linux-gnu/ --name=firefox -u emerson ubuntu:firefox /usr/bin/firefox-esr

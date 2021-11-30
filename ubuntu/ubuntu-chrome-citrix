@@ -1,5 +1,4 @@
-FROM ubuntu/chrome:latest
-# FROM ubuntu/chrome:sudo
+FROM ubuntu:chrome
 
 RUN apt-get -y update
 
@@ -12,7 +11,10 @@ RUN echo icaclient icaclient/accepteula select true | debconf-set-selections
 RUN echo icaclient keyboard-configuration/layoutcode string us | debconf-set-selections
 RUN echo icaclient keyboard-configuration/layout select | debconf-set-selections
 
-RUN apt-get -q -y install -f /icaclient.deb
+RUN apt-get -y install libgtk2.0-0*
+RUN apt-get -y install libidn11*
+
+RUN dpkg --install icaclient.deb
 RUN apt-get -q -y clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN mkdir -p /opt/Citrix/ICAClient/keystore/cacerts
@@ -26,7 +28,9 @@ RUN c_rehash /opt/Citrix/ICAClient/keystore/cacerts/ > /dev/null
 # ENTRYPOINT ["/usr/bin/google-chrome-stable", "--no-remote"]
 
 #docker image rm ubuntu/chrome:citrix; docker build -t ubuntu/chrome:citrix -f /data/docker/ubuntu-chrome-citrix .
-#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged -u root ubuntu/chrome:citrix /bin/bash
+
+#docker run --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged --name=chrome -u emerson ubuntu:chrome /usr/bin/google-chrome-stable
+
 #docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged ubuntu/chrome:citrix /usr/bin/google-chrome-stable --no-remote --no-sandbox
 
 

@@ -1,0 +1,35 @@
+FROM ubuntu:firefox
+
+RUN apt-get -y update
+
+# Install ICAClient
+RUN wget -O - https://www.citrix.com/de-de/downloads/workspace-app/linux/workspace-app-for-linux-latest.html 2>/dev/null | grep '<a' | grep icaclient_ | grep _amd64 | sed 's/.*rel="/https:/g' | sed 's/".*//g' | sed 's/^/wget -O icaclient.deb /g' | sh
+
+RUN export DEBIAN_FRONTEND="noninteractive"
+RUN echo icaclient app_protection/install_app_protection select no | debconf-set-selections
+RUN echo icaclient icaclient/accepteula select true | debconf-set-selections
+RUN echo icaclient keyboard-configuration/layoutcode string us | debconf-set-selections
+RUN echo icaclient keyboard-configuration/layout select | debconf-set-selections
+
+RUN apt-get -y install libxpm4*
+RUN apt-get -y install libgtk2.0-0*
+RUN apt-get -y install libidn11*
+
+RUN apt-get -y install -f /icaclient.deb
+RUN apt-get -q -y clean
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN mkdir -p /opt/Citrix/ICAClient/keystore/cacerts
+RUN ln -s /usr/share/ca-certificates/mozilla/* /opt/Citrix/ICAClient/keystore/cacerts/
+RUN c_rehash /opt/Citrix/ICAClient/keystore/cacerts/ > /dev/null
+
+# ENV HOME /home/emerson
+# WORKDIR /home/emerson
+# USER emerson
+
+ENTRYPOINT ["/usr/bin/firefox-esr", "--no-remote"]
+
+#docker image rm ubuntu/firefox:citrix; docker build -t ubuntu/firefox:citrix -f /data/docker/ubuntu/ubuntu-firefox-citrix .
+
+#docker run --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged --name=firefox -u emerson ubuntu:firefox
+
+#docker run --net mydockernet --ip 192.168.10.2 -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged ubuntu/firefox:citrix /bin/bash

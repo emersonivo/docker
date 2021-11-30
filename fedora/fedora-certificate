@@ -1,0 +1,21 @@
+FROM fedora:latest
+
+RUN dnf -y update
+RUN adduser emerson --home /home/emerson
+RUN mkdir -p /home/emerson/Downloads
+RUN chown -R emerson:users /home/emerson
+RUN chmod -R 777 /home/emerson
+ENV HOME /home/emerson
+WORKDIR /home/emerson
+
+COPY certificates.tar.gz /home/emerson/certificates.tar.gz
+
+RUN echo $DISPLAY
+RUN echo 'PS1="[\[\e[1;31m\u\e[0m@\h:\w]\$ "' > /home/emerson/.bashrc
+
+#docker image rm fedora:delete; docker build -t fedora:delete -f /data/docker/fedora/fedora-certificate .
+#docker run --ip 192.168.10.2 -itd -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged --name=fedora fedora:delete
+
+#docker run --ip 192.168.10.2 -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged fedora/firefox /bin/bash
+
+#docker run --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged fedora/firefox /usr/bin/firefox --no-remote --no-sandbox

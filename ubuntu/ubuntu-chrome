@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:unminimized
 
 RUN apt-get -y update
 RUN apt-get -y install iproute2
@@ -39,17 +39,15 @@ COPY sudoers /etc/sudoers
 
 RUN chown -R emerson:users /home/emerson
 RUN chmod -R 777 /home/emerson
-# ENV HOME /home/emerson
-# WORKDIR /home/emerson
-
-RUN ls -l /home/emerson/start.sh
-RUN ls -l /etc/sudoers
-RUN grep emerson /etc/sudoers
+ENV HOME /home/emerson
+WORKDIR /home/emerson
+# USER emerson
 
 # ENTRYPOINT ["/usr/bin/google-chrome-stable", "--no-remote"]
 
-#docker image rm ubuntu/chrome; docker build -t ubuntu/chrome -f /data/docker/ubuntu-chrome .
-#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged ubuntu/chrome /bin/bash
+#docker image rm ubuntu:chrome; docker build -t ubuntu:chrome -f /data/docker/ubuntu/ubuntu-chrome .
+
+#docker run --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged --name=chrome ubuntu:chrome /usr/bin/google-chrome-stable
 
 #docker run --net mydockernet --ip 192.168.10.2 -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged ubuntu/chrome /bin/bash
 

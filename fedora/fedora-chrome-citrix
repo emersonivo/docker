@@ -1,10 +1,9 @@
 FROM fedora/chrome:latest
-# FROM ubuntu/chrome:sudo
 
-RUN dnf -y update
+RUN sudo dnf -y update
 
 # Install ICAClient
-RUN wget -O - https://www.citrix.com/de-de/downloads/workspace-app/linux/workspace-app-for-linux-latest.html 2>/dev/null | grep '<a' | grep icaclient_ | grep _amd64 | sed 's/.*rel="/https:/g' | sed 's/".*//g' | sed 's/^/wget -O icaclient.deb /g' | sh
+RUN wget -O - https://www.citrix.com/de-de/downloads/workspace-app/linux/workspace-app-for-linux-latest.html 2>/dev/null | grep '<a' | grep ICAClient-rhel | grep x86_64 | sed 's/.*rel="/https:/g' | sed 's/".*//g' | sed 's/^/wget -O icaclient.rpm /g' | sh
 
 # RUN export DEBIAN_FRONTEND="noninteractive"
 # RUN echo icaclient app_protection/install_app_protection select no | debconf-set-selections
@@ -12,25 +11,33 @@ RUN wget -O - https://www.citrix.com/de-de/downloads/workspace-app/linux/workspa
 # RUN echo icaclient keyboard-configuration/layoutcode string us | debconf-set-selections
 # RUN echo icaclient keyboard-configuration/layout select | debconf-set-selections
 
-# RUN apt-get -q -y install -f /icaclient.deb
-# RUN apt-get -q -y clean
-# RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-# RUN mkdir -p /opt/Citrix/ICAClient/keystore/cacerts
-# RUN ln -s /usr/share/ca-certificates/mozilla/* /opt/Citrix/ICAClient/keystore/cacerts/
-# RUN c_rehash /opt/Citrix/ICAClient/keystore/cacerts/ > /dev/null
+RUN sudo dnf -y install gtk2
+RUN sudo dnf -y install libXt
+RUN sudo dnf -y install libXmu
+RUN sudo dnf -y install libSM
+RUN sudo dnf -y install libXpm
+RUN sudo dnf -y install libICE
+RUN sudo dnf -y install openssl-perl
+RUN sudo rpm -ivh /home/emerson/icaclient.rpm
+RUN sudo /etc/init.d/ctxlogd start
+RUN sudo dnf clean all
+RUN sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN sudo mkdir -p /opt/Citrix/ICAClient/keystore/cacerts
+RUN sudo ln -s /usr/share/ca-certificates/mozilla/* /opt/Citrix/ICAClient/keystore/cacerts/
+RUN sudo c_rehash /opt/Citrix/ICAClient/keystore/cacerts/ > /dev/null
 
 ENV HOME /home/emerson
 WORKDIR /home/emerson
-USER emerson
+# USER emerson
 
 # ENTRYPOINT ["/usr/bin/google-chrome-stable", "--no-remote"]
 
-#docker image rm ubuntu/chrome:citrix; docker build -t ubuntu/chrome:citrix -f /data/docker/ubuntu-chrome-citrix .
-#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged -u root ubuntu/chrome:citrix /bin/bash
-#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged ubuntu/chrome:citrix /usr/bin/google-chrome-stable --no-remote --no-sandbox
+#docker image rm fedora/chrome:citrix; docker build -t fedora/chrome:citrix -f /data/docker/fedora/fedora-chrome-citrix .
+#docker run --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged fedora/chrome:citrix /bin/bash
+#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged fedora/chrome:citrix /usr/bin/google-chrome-stable --no-remote --no-sandbox
 
 
 
 
 
-#docker run --net mydockernet --ip 192.168.10.2 -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged ubuntu/chrome:citrix /bin/bash
+#docker run --net mydockernet --ip 192.168.10.2 -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged fedora/chrome:citrix /bin/bash

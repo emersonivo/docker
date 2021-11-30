@@ -1,0 +1,55 @@
+FROM fedora:certificate
+# FROM fedora/firefox:root
+
+RUN sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+RUN sudo dnf -y update
+
+RUN sudo dnf -y install gtk2*
+
+# Install ICAClient
+RUN wget -O - https://www.citrix.com/de-de/downloads/workspace-app/linux/workspace-app-for-linux-latest.html 2>/dev/null | grep '<a' | grep ICAClient-rhel | grep x86_64 | sed 's/.*rel="/https:/g' | sed 's/".*//g' | sed 's/^/wget -O icaclient.rpm /g' | sh
+
+# RUN wget -O - https://www.citrix.com/downloads/citrix-receiver/linux/receiver-for-linux-latest.html | grep '<a' | grep -i 'ICAClient-rhel.*rpm' |  grep x86_64 | sed 's/.*rel="/https:/g' | sed 's/".*//g' | sed 's/^/wget -O icaclient.rpm /g' | sh
+
+
+
+
+RUN sudo dnf -y install openssl-perl
+RUN sudo rpm -ivh /home/emerson/icaclient.rpm
+RUN sudo /etc/init.d/ctxlogd start
+RUN sudo dnf clean all
+RUN sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN sudo mkdir -p /opt/Citrix/ICAClient/keystore/cacerts
+RUN sudo tar xvf /home/emerson/certificates.tar.gz
+RUN sudo rm -f /opt/Citrix/ICAClient/keystore/cacerts/*
+RUN sudo ln -s /usr/share/ca-certificates/mozilla/* /opt/Citrix/ICAClient/keystore/cacerts/
+RUN sudo c_rehash /opt/Citrix/ICAClient/keystore/cacerts/ > /dev/null
+
+ENV HOME /home/emerson
+WORKDIR /home/emerson
+# USER emerson
+
+# ENTRYPOINT ["/usr/bin/firefox", "--no-remote"]
+
+#docker image rm fedora/firefox:citrix; docker build -t fedora/firefox:citrix -f /data/docker/fedora/fedora-firefox-citrix .
+
+#docker run --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged fedora/firefox:citrix /bin/bash
+
+#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged fedora/firefox:citrix /usr/bin/google-firefox-stable --no-remote --no-sandbox
+
+#docker run --ip 192.168.10.2 -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged --name myfedora fedora/firefox:citrix /usr/bin/firefox
+
+#docker image rm fedora/firefox/citrix:root; docker build -t fedora/firefox/citrix:root -f /data/docker/fedora/fedora-firefox-citrix .
+
+#docker run --ip 192.168.10.2 -itd -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged --name=myfedora fedora/firefox:citrix
+
+
+#docker run -it -d --privileged --rm -e DISPLAY=$DISPLAY -e XDG_SESSION_TYPE=$XDG_SESSION_TYPE -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR -v /dev:/dev -v /tmp:/tmp -v /run:/run -v /var:/var -v /usr/lib/x86_64-linux-gnu/:/usr/lib/x86_64-linux-gnu/ --name firefox fedora/firefox:citrix
+
+
+#docker run -it --privileged --rm --memory 512mb -e DISPLAY=unix$DISPLAY -e XDG_SESSION_TYPE=$XDG_SESSION_TYPE -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm -v $HOME/.Xauthority:/home/emerson/.Xauthority -v /etc/machine-id:/etc/machine-id -v /var/lib/dbus:/var/lib/dbus -v /run/user/`id -u`/pulse/native:/run/user/`id -u`/pulse/native -v /dev:/dev -v /tmp:/tmp -v /run:/run -v /var:/var -v /usr/lib/x86_64-linux-gnu/:/usr/lib/x86_64-linux-gnu/ --name firefox fedora/firefox:citrix /bin/bash
+
+
+
+#docker run --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority -v $HOME/Documents:/home/emerson/Documents --privileged fedora/firefox:citrix /bin/bash

@@ -1,0 +1,98 @@
+-------------------------------
+-- Client Information...      -
+-------------------------------
+Client version:
+21.9.0.25
+Install location:
+/opt/Citrix/ICAClient
+
+--------------------------------------------
+-- Checking HDX MediaStream dependencies.. -
+--------------------------------------------
+
+/opt/Citrix/ICAClient/util/gst_play0.10: error while loading shared libraries: libgstinterfaces-0.10.so.0: cannot open shared object file: No such file or directory
+The minimum required version of GStreamer is 0.10.25
+You are using version  of GStreamer
+Warning! - A compatible version of GStreamer could not be located!
+
+The minimum required version of GStreamer 1.0 is 1.2.4
+You are using version 1.19.3 of GStreamer 1.0
+Success! - A compatible version of GStreamer 1.0 is installed!
+
+-----------------------------------
+-- Checking Display Server Support ... -
+-----------------------------------
+Warning! - Your display server is not supported. Your Desktop and App sessions will not work as expected!
+
+---------------------------------------------------------------
+-- Checking that a compatible version of glibc is installed...
+---------------------------------------------------------------
+ls: cannot access '*libc-2*': No such file or directory
+The minimum required version is 2.7
+You are using version  of glibc
+A compatible version of glibc could not be located!
+
+-----------------------------------
+- Checking X-window dependencies  -
+-----------------------------------
+-----------------------------------------------------------------
+-- Checking that your system supports the minimum color depth...
+-----------------------------------------------------------------
+No protocol specified
+xdpyinfo:  unable to open display "unix:1".
+The minimum required color depth is 8 bit
+Your system supports up to 0 bit
+Error! - A compatible color depth is NOT available!
+
+------------------------------------------------------------
+-- Checking that your XServer supports Seamless Windows...
+------------------------------------------------------------
+No protocol specified
+xprop:  unable to open display 'unix:1'
+Warning! - Seamless windows are NOT supported!
+-------------------------------------------------------
+-- Checking that your XServer supports Multi-Monitor...
+-------------------------------------------------------
+Warning! - Multimonitor is not supported!
+
+
+
+$ docker exec -it firefox /usr/bin/firefox
+[GFX1-]: glxtest: libEGL initialize failed
+[GFX1-]: glxtest: X error, error_code=8, request_code=152, minor_code=5
+[GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+[GFX1-]: PCI candidate 0x8086/0x1912
+[GFX1-]: PCI candidate 0x10de/0x1d01
+[GFX1-]: glxtest: process failed (exited with status 1)
+
+
+# Pop-up license window
+Gtk-Message: 10:55:44.808: Failed to load module "pk-gtk-module"
+
+# Attempt to open the remote session
+[LD_LOG_ERROR] streaming failed with recoverable error, backing off
+Anomaly in MIT_SHM attach: 1 attachments, perm 1600.
+Gtk-Message: 10:55:59.378: Failed to load module "pk-gtk-module"
+[LD_LOG_ERROR] streaming failed with recoverable error, backing off
+[LD_LOG_ERROR] streaming failed with recoverable error, backing off
+[LD_LOG_ERROR] streaming failed with recoverable error, backing off
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+
+/home/emerson/.ICAClient/logs/AuthManager-415.log
+Time: Fri 26 Nov 2021 19:42:01 UTC
+LocalTime: Fri 26 Nov 2021 19:42:01
+Type: Warning
+Module: Citrix Authentication Manager
+Location: /opt/Citrix/ICAClient/AuthManagerDaemon
+Version: ...SF. (Release)
+Platform: Linux
+Description: There was a problem accessing the HTTP server.
+Exception type: HTTP exception
+Detail: Gateway connectivity was indicated, but the resource did not have an associated gateway; server URL: 'http://no%20server/Citrix/Storediscovery'
+Context:
+        CAuthHttpRequestImpl::SendAndReceive
+
+

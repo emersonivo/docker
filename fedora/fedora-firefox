@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM fedora:MATE
 
 RUN dnf -y update
 RUN dnf -y install iproute
@@ -8,65 +8,31 @@ RUN dnf -y install iputils
 RUN dnf -y install wget
 RUN dnf -y install dbus
 
-# RUN echo -e " Adding repositories\n"
-# RUN dnf -y install fedora-workstation-repositories
-# RUN dnf -y install 'dnf-command(config-manager)'
-# RUN dnf -y config-manager --set-enabled google-chrome
-# RUN dnf -y install google-chrome-stable
+RUN dnf -y install fedora-workstation-repositories
 
-# # RUN dnf -y update
-# RUN dnf -y install firefox
-# RUN dnf -y install xorg-x11-twm
-# # RUN dnf -y install tigervnc-server
-# # RUN dnf -y install xterm xulrunner
-# RUN dnf -y install dejavu-sans-fonts
-# RUN dnf -y install dejavu-serif-fonts
-# # RUN dnf -y install xdotool
+RUN dnf -y install firefox
+RUN dnf -y install xorg-x11-twm
+RUN dnf -y install dejavu-sans-fonts
+RUN dnf -y install dejavu-serif-fonts
 RUN dnf clean all
-
-
-
-# RUN dnf -y install libxmu6
-# RUN dnf -y install libglu1-mesa
 RUN dnf -y install dbus-x11
-# RUN dnf -y install fonts-freefont-ttf
-# RUN dnf -y install libcanberra-gtk3-module
 RUN dnf -y install pulseaudio
 
-# RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-#     && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
-# RUN dnf -y update && dnf -y install google-chrome-stable
-
-RUN mkdir -p /home/emerson/Downloads
-RUN adduser emerson --home /home/emerson
-
-# #https://askfedora.com/questions/147241/execute-sudo-without-password
-# RUN usermod -aG sudo emerson    
-# RUN echo "emerson ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
-
-# COPY start.sh /home/emerson/start.sh
+COPY start.sh /home/emerson/start.sh
 COPY sudoers /etc/sudoers
 
-# # CMD cp -fr /tmp/sudoers /etc/sudoers
-
-RUN chown -R emerson:users /home/emerson
-RUN chmod -R 777 /home/emerson
-ENV HOME /home/emerson
-WORKDIR /home/emerson
-
-# RUN ls -l /home/emerson/start.sh
+RUN ls -l /home/emerson/start.sh
 RUN ls -l /etc/sudoers
 RUN grep emerson /etc/sudoers
 
-USER emerson
+# USER emerson
 
 RUN echo $DISPLAY
-RUN export PS1="[\[\e[1;31m\u\e[0m@\h:\w]\$ "
-# ENTRYPOINT ["/usr/bin/google-chrome-stable", "--no-remote"]
+RUN echo 'PS1="[\[\e[1;31m\u\e[0m@\h:\w]\$ "' > /home/emerson/.bashrc
 
-#docker image rm fedora/firefox; docker build -t fedora/firefox -f /data/docker/fedora/fedora-firefox .
-#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged fedora/chrome /bin/bash
+#docker image rm fedora/MATE:firefox; docker build -t fedora/MATE:firefox -f /data/docker/fedora/fedora-firefox .
+#docker run --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged fedora/firefox /bin/bash
 
-#docker run --net mydockernet --ip 192.168.10.2 -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged fedora/chrome /bin/bash
+#docker run --ip 192.168.10.2 -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged fedora/firefox /bin/bash
 
-#docker run --net mydockernet --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged fedora/chrome /usr/bin/google-chrome-stable --no-remote --no-sandbox
+#docker run --ip 192.168.10.2 --rm -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -v /dev/snd:/dev/snd -v $HOME/.Xauthority:/home/emerson/.Xauthority --privileged fedora/firefox /usr/bin/firefox --no-remote --no-sandbox
